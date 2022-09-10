@@ -12,7 +12,8 @@ model Employee {
   name      String
   email     String?
   address   String?
-  tel       String
+  tel       Int
+  isAdmin   Boolean @default(false)
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
 }
