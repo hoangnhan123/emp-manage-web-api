@@ -1,6 +1,7 @@
 import { Injectable, UseGuards } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateEmployeeDto } from './dto/create-employee.dto';
+import { DeleteEmployeeDto } from './dto/delete-employee.dto';
 import { UpdateEmployeeDto } from './dto/update-employee.dto';
 
 @Injectable()
@@ -53,6 +54,21 @@ export class EmployeeService {
         }
       });
       return deleteEmployee;
+    } catch (error) {
+      throw(error);
+    }
+  }
+
+  async removeMany(deleteEmployeeDto: DeleteEmployeeDto) {
+    try {
+      const delMany = await this.prisma.employee.deleteMany({
+        where: {
+          id: {
+            in: deleteEmployeeDto.id
+          }
+        }
+      });
+      return delMany;
     } catch (error) {
       throw(error);
     }

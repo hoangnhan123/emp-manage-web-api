@@ -3,6 +3,7 @@ import { EmployeeService } from './employee.service';
 import { CreateEmployeeDto } from './dto/create-employee.dto';
 import { UpdateEmployeeDto } from './dto/update-employee.dto';
 import { JwtGuard } from '../auth/guard';
+import { DeleteEmployeeDto } from './dto/delete-employee.dto';
 
 @UseGuards(JwtGuard)
 @Controller('employee')
@@ -32,5 +33,10 @@ export class EmployeeController {
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.employeeService.remove(+id);
+  }
+
+  @Post('delete-many')
+  removeMultiData(@Body() deleteEmployeeDto: DeleteEmployeeDto) {
+     return this.employeeService.removeMany(deleteEmployeeDto);
   }
 }
