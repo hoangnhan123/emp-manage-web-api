@@ -19,8 +19,13 @@ export class EmployeeService {
   }
 
   async findAll() {
-    const employee = await this.prisma.employee.findMany();
-    return employee;
+    const employee = await this.prisma.employee.findMany({
+      orderBy: {
+        id: 'asc',
+      }
+    });
+    const count = await this.prisma.employee.count();
+    return {count, employee};
   }
 
   async findOne(id: number) {
